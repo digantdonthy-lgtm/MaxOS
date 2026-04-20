@@ -1,397 +1,64 @@
 <html>
 <head>
-<title>MaxOS</title>
-
+<title>Mini Game Hub</title>
+</head>
+<body>
+<h1 class="Title">Mini Game Hub </h1>
+<p class="Subtitle">Play! Complete! Have Fun!</p>
+<div class="menu">
+    <button onclick="openGame('tictactoe.html')">❌⭕ Tic Tac Toe</button>
+    <button onclick="openGame('memory.html')">🧠 Memory Game</button>
+    <button onclick="openGame('reaction.html')">⚡ Reaction Timer</button>
+    <button onclick="openGame('guessing.html')">🔢 Number Guessing</button>
+</div>
+<iframe id="gameFrame" style="width:90%;height:400px;border:none;margin-top:20px;"></iframe>
 <style>
 body{
-    margin:0;
-    background:url("index.png");
-    background-size:cover;
-    font-family:sans-serif;
-}
-
-/* TOP BAR */
-.bar{
-    position:fixed;
-    top:0;
-    width:98%;
-    height:50px;
-    background:rgba(0,0,0,0.7);
-    color:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 15px;
-}
-
-/* ICONS */
-.icon{
-    position:absolute;
-    width:50px;
-    border-radius:15px;
-    cursor:pointer;
-}
-.icon:hover{
-    transform:scale(1.1);
-}
-.name{
-    position:absolute;
-    color:cyan;
-    font-size:12px;
-    width:50px;
-    text-align:center;
-}
-
-/* WINDOWS */
-.window{
-    display:none;
-    position:absolute;
-    top:200px;
-    left:80px;
-    background:white;
-    border-radius:10px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    overflow:hidden;
-}
-
-/* TITLEBAR */
-.titlebar{
-    background:lightgrey;
-    height:30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 10px;
-}
-.close{ cursor:pointer; }
-.close:hover{ color:red; }
-
-/* NOTES */
-.notes textarea{
-    width:100%;
-    height:250px;
-    border:none;
-    outline:none;
-    padding:10px;
-}
-
-/* CALCULATOR */
-.calculator{
-    width:260px;
-    padding:10px;
-    display:none;
-}
-.calc-body{
-    padding: 10px;
-}
-.calc-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-.display{
-    grid-column:span 4;
-    height:60px;
-    font-size:20px;
-    text-align:right;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    outline: none;
-    background: black;
-    color: #00ffcc;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-/* BUTTONS */
-.calc-grid button{
-    padding: 18px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    background: #2c2c2c;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #00f7ff;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: white;
-    cursor: pointer;
-    transition: 0.2s;
+    text-align: center;
+}
+.Title{
+    margin-top:50px;
+    font-size:3rem;
+    text-shadow: 0 0 10px #00f7ff;
 }
 
-.calc-grid button:hover{
-    background: #444;
+.Subtitle{
+    margin-bottom:30px;
+    color: #ccc;
 }
-
-/* OPERATORS */
-.op{
-    background: #ff9500;
+.menu{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.op:hover{
-    background: #ffaa33;
+button{
+  width: 250px;
+  padding: 15px;
+  margin: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #1f4068;
+  color: white;
+  transition: 0.3s;
 }
-
-/* EQUALS */
-.equals{
-    background: #00c853;
-}
-
-.equals:hover{
-    background: #00e676;
-}
-
-/* ZERO BUTTON */
-.zero{
-    grid-column: span 2;
-} 
-
-/*BROWSER*/
-.browser{
-    width:600px;
-    height:400px;
-}
-.browser-bar{
-    display: flex;
-    padding: 5px;
-    background: #eee;
-}
-.browser-bar input{
-    flex: 1;
-    padding: 5px;
-}
-.browser-bar button{
-    padding: 5px 10px;
-}
-iframe{
-    width: 100%;
-    height: calc(100% - 40px);
-    border: none;
+button:hover{
+    background: #00adb5;
+    transform: scale(1.05);
 }
 </style>
-
-</head>
-
-<body>
-
-<div class="bar">
-    <div>🍎 MaxOS</div>
-    <div id="time"></div>
-</div>
-
-<!-- ICONS -->
-<img src="icon1.png" class="icon" style="top:70px;left:20px;" onclick="openApp('notes')">
-<div class="name" style="top:120px;left:20px;">Notes</div>
-
-<img src="icon2.png" class="icon" style="top:70px;left:90px;" onclick="openApp('calculator')">
-<div class="name" style="top:120px;left:90px;">Calculator</div>
-
-<img src="icon3.png" class="icon" style="top:70px;left:160px;" onclick="openApp('browser')">
-<div class="name" style="top:120px;left:160px;">Browser</div>
-
-<img src="icon4.png" class="icon" style="top:70px;left:230px;" onclick="openApp('paint')">
-<div class="name" style="top:120px;left:230px;">Paint</div>
-
-<!-- NOTES -->
-<div class="window notes" id="notes">
-    <div class="titlebar">
-        Notes
-        <div class="close" onclick="closeApp('notes')">❌</div>
-    </div>
-    <textarea></textarea>
-</div>
-
-<!-- CALCULATOR -->
-<div class="window calculator" id="calculator">
-    <div class="titlebar">
-        Calculator
-        <div class="close" onclick="closeApp('calculator')">❌</div>
-    </div>
-
-    <div class="calc-body">
-        <input type="text" id="display" class="display" disabled>
-
-        <div class="calc-grid">
-            <button onclick="clearDisplay()" class="op">C</button>
-            <button onclick="add('/') " class="op">÷</button>
-            <button onclick="add('*')" class="op">×</button>
-            <button onclick="add('-')" class="op">−</button>
-
-            <button onclick="add('7')">7</button>
-            <button onclick="add('8')">8</button>
-            <button onclick="add('9')">9</button>
-            <button onclick="add('+')" class="op">+</button>
-
-            <button onclick="add('4')">4</button>
-            <button onclick="add('5')">5</button>
-            <button onclick="add('6')">6</button>
-
-            <button onclick="add('1')">1</button>
-            <button onclick="add('2')">2</button>
-            <button onclick="add('3')">3</button>
-
-            <button onclick="add('0')" class="zero">0</button>
-            <button onclick="add('.')">.</button>
-            <button onclick="calculate()" class="equals">=</button>
-        </div>
-    </div>
-</div>
-
-<!-- BROWSER -->
-<div class="window browser" id="browser">
-    <div class="titlebar">
-        Browser
-        <div class="close" onclick="closeApp('browser')">❌</div>
-    </div>
-
-    <div class="browser-bar">
-        <input type="text" id="url" placeholder="Enter URL or search...">
-        <button onclick="loadPage()">Go</button>
-    </div>
-
-    <iframe id="viewer"></iframe>
-</div>
-
-<!-- PAINT-->
- <div class="window" id="paint" style="width: 600px;height: 400px;">
-    <div class="titlebar">
-        Paint
-        <div class="close" onclick="closeApp('paint')">❌</div>
-    </div>
-    <!--TOOLSBAR-->
-    <div style="padding:5px;background: #eee;">
-        <input type="color" id="colorPicker">
-        <button onclick="clearCanvas()">Clear</button>
-    </div>
-    <!--CANVAS-->
-    <canvas id="canvas" style="margin:10px; width:calc(100% - 20px); height:300px; background:white;"></canvas>
- </div>
-
 <script>
-/* CLOCK */
-setInterval(()=>{
-    document.getElementById("time").innerText =
-    new Date().toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
-},1000);
-
-/* UNIVERSAL APP SYSTEM */
-
-function closeApp(app){
-    document.getElementById(app).style.display = "none";
-}
-let z = 1;
-
-function openApp(app){
-    let win = document.getElementById(app);
-    win.style.display = "block";
-    win.style.zIndex = z++;
-    
-    if(app === "paint"){
-        setTimeout(() => {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }, 50);
-    }
-}
-
-/* CALCULATOR LOGIC */
-function add(val){
-    display.value += val;
-}
-function calculate(){
-    display.value = eval(display.value);
-}
-function clearDisplay(){
-    display.value = "";
-}
-document.addEventListener("keydown", function(event){
-    let key = event.key;
-
-    if("0123456789+-*/.".includes(key)){
-        add(key);
-    }
-    else if(key === "Enter"){
-        calculate();
-    }
-    else if(key === "Backspace"){
-        display.value = display.value.slice(0,-1);
-    }
-    else if(key === "Escape"){
-        clearDisplay();
-    }
-});
-
-/*Dragging system*/
-let activeWindow = null;
-let offsetX = 0, offsetY = 0;
-
-document.querySelectorAll(".titlebar").forEach(bar => {
-    bar.onmousedown = function(e){
-        activeWindow = bar.parentElement;
-
-        offsetX = e.clientX - activeWindow.offsetLeft;
-        offsetY = e.clientY - activeWindow.offsetTop;
-    };
-});
-
-document.onmousemove = function(e){
-    if(activeWindow){
-        activeWindow.style.left = (e.clientX - offsetX) + "px";
-        activeWindow.style.top = (e.clientY - offsetY) + "px";
-    }
-};
-
-document.onmouseup = function(){
-    activeWindow = null;
-};
-
-/*BROWSER*/
-function loadPage(){
-    let input=document.getElementById("url").value;
-    if(input.includes(".")){
-        if(!input.startsWith("http")){
-            input="https://"+input;
-        }
-    }
-    else{
-        input="https://www.google.com/search?q=" + input;
-    }
-    document.getElementById("viewer").src=input;
-}
-
-/* PAINT */
-let canvas, ctx;
-let drawing = false;
-
-window.addEventListener("load", function(){
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
-
-    // 🔥 IMPORTANT: set real canvas resolution
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-
-    canvas.addEventListener("mousedown", () => drawing = true);
-    canvas.addEventListener("mouseup", () => drawing = false);
-    canvas.addEventListener("mouseleave", () => drawing = false);
-    canvas.addEventListener("mousemove", draw);
-});
-
-function draw(e){
-    if(!drawing) return;
-
-    let rect = canvas.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let y = e.clientY - rect.top;
-
-    let color = document.getElementById("colorPicker").value;
-
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-function clearCanvas(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function openGame(page){
+    document.getElementById("gameFrame").src = page;
 }
 </script>
-
 </body>
 </html>
