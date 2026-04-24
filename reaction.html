@@ -7,7 +7,20 @@
 <h2 id="status">Wait for green...</h2>
 <h3 id="best">Best: -- ms</h3>
 <div id="box"></div>
-<button onclick="goHome()">🏠 Home</button>
+<button onclick="goBack()" style="
+position:absolute;
+top:10px;
+left:10px;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+background:black;
+color:white;
+cursor:pointer;
+z-index:1000;
+">
+⬅ Back
+</button>
 <style>
 body{
     text-align:center;
@@ -62,8 +75,8 @@ document.getElementById("box").addEventListener("click", function(){
         setTimeout(startGame, 2000);
     }
 });
-function goHome(){
-    window.location.href = "index.html";
+function goBack(){
+    window.parent.postMessage("goBack", "*");
 }
 
 startGame();

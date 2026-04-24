@@ -5,7 +5,7 @@
 <style>
 body{
     margin:0;
-    background:url("index.png");
+    background:url("background.png");
     background-size:cover;
     font-family:sans-serif;
 }
@@ -13,7 +13,7 @@ body{
 /* TOP BAR */
 .bar{
     position:fixed;
-    top:0;
+    bottom:0;
     width:98%;
     height:50px;
     background:rgba(0,0,0,0.7);
@@ -22,6 +22,7 @@ body{
     justify-content:space-between;
     align-items:center;
     padding:0 15px;
+    z-index: 10000;
 }
 
 /* ICONS */
@@ -36,7 +37,7 @@ body{
 }
 .name{
     position:absolute;
-    color:cyan;
+    color:white;
     font-size:12px;
     width:50px;
     text-align:center;
@@ -44,27 +45,33 @@ body{
 
 /* WINDOWS */
 .window{
-    display:none;
-    position:absolute;
-    top:200px;
-    left:80px;
-    background:white;
-    border-radius:10px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    overflow:hidden;
+        display:none;
+        position:absolute;
+        top:200px;
+        left:80px;
+        background:white;
+        border-radius:10px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.5);
+        overflow:hidden;
 }
 
-/* TITLEBAR */
-.titlebar{
-    background:lightgrey;
-    height:30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 10px;
+    /* TITLEBAR */
+    .titlebar{
+        background:lightgrey;
+        height:30px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:0 10px;
+    }
+    .close{ cursor:pointer; }
+    .close:hover{ color:red; }
+
+.controls{
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
 }
-.close{ cursor:pointer; }
-.close:hover{ color:red; }
 
 /* NOTES */
 .notes textarea{
@@ -174,31 +181,34 @@ iframe{
 <body>
 
 <div class="bar">
-    <div>🍎 MaxOS</div>
+    <div>🪟 Windows</div>
     <div id="time"></div>
 </div>
 
 <!-- ICONS -->
-<img src="icon1.png" class="icon" style="top:70px;left:20px;" onclick="openApp('notes')">
-<div class="name" style="top:120px;left:20px;">Notes</div>
+<img src="icon1.png" class="icon" style="top:15px;left:20px;" onclick="openApp('notes')">
+<div class="name" style="top:65px;left:20px;">Notes</div>
 
-<img src="icon2.png" class="icon" style="top:70px;left:90px;" onclick="openApp('calculator')">
-<div class="name" style="top:120px;left:90px;">Calculator</div>
+<img src="icon2.png" class="icon" style="top:90px;left:20px;" onclick="openApp('calculator')">
+<div class="name" style="top:140px;left:20px;">Calculator</div>
 
-<img src="icon3.png" class="icon" style="top:70px;left:160px;" onclick="openApp('browser')">
-<div class="name" style="top:120px;left:160px;">Browser</div>
+<img src="icon3.png" class="icon" style="top:165px;left:20px;" onclick="openApp('browser')">
+<div class="name" style="top:215px;left:20px;">Browser</div>
 
-<img src="icon4.png" class="icon" style="top:70px;left:230px;" onclick="openApp('paint')">
-<div class="name" style="top:120px;left:230px;">Paint</div>
+<img src="icon4.png" class="icon" style="top:240px;left:20px;" onclick="openApp('paint')">
+<div class="name" style="top:290px;left:20px;">Paint</div>
 
-<img src="icon5.png" class="icon" style="top:70px;left:300px;" onclick="openApp('games')">
-<div class="name" style="top:120px;left:300px;">Games</div>
+<img src="icon5.png" class="icon" style="top:315px;left:20px;" onclick="openApp('games')">
+<div class="name" style="top:365px;left:20px;">Games</div>
 
 <!-- NOTES -->
 <div class="window notes" id="notes">
     <div class="titlebar">
-        Notes
-        <div class="close" onclick="closeApp('notes')">❌</div>
+        <span>Notes</span>
+        <div class="controls">
+        <span onclick="maximizeApp('notes')" >🟩</span>
+        <span class="close" onclick="closeApp('notes')">❌</span>
+        </div>
     </div>
     <textarea></textarea>
 </div>
@@ -206,8 +216,11 @@ iframe{
 <!-- CALCULATOR -->
 <div class="window calculator" id="calculator">
     <div class="titlebar">
-        Calculator
-        <div class="close" onclick="closeApp('calculator')">❌</div>
+        <span>Calculator</span>
+        <div class="controls">
+        <span onclick="maximizeApp('calculator')" >🟩</span>
+        <span class="close" onclick="closeApp('calculator')">❌</span>
+        </div>
     </div>
 
     <div class="calc-body">
@@ -242,8 +255,11 @@ iframe{
 <!-- BROWSER -->
 <div class="window browser" id="browser">
     <div class="titlebar">
-        Browser
-        <div class="close" onclick="closeApp('browser')">❌</div>
+        <span>Browser</span>
+        <div class="controls">
+        <span onclick="maximizeApp('browser')" >🟩</span>
+        <span class="close" onclick="closeApp('browser')">❌</span>
+        </div>
     </div>
 
     <div class="browser-bar">
@@ -257,8 +273,11 @@ iframe{
 <!-- PAINT-->
  <div class="window" id="paint" style="width: 600px;height: 400px;">
     <div class="titlebar">
-        Paint
-        <div class="close" onclick="closeApp('paint')">❌</div>
+        <span>Paint</span>
+        <div class="controls">
+        <span onclick="maximizeApp('paint')" >🟩</span>
+        <span class="close" onclick="closeApp('paint')">❌</span>
+        </div>
     </div>
     <!--TOOLSBAR-->
     <div style="padding:5px;background: #eee;">
@@ -272,11 +291,14 @@ iframe{
  <!--GAME HUB-->
  <div class="window" id="games" style="width:750px;height:500px;">
     <div class="titlebar">
-        Game Hub
-        <div class="close" onclick="closeApp('games')">❌</div>
+        <span>Game Hub</span>
+        <div class="controls">
+        <span onclick="maximizeApp('games')" >🟩</span>
+        <span class="close" onclick="closeApp('games')">❌</span>
+        </div>
     </div>
 
-    <iframe src="gamehub.html" style="width:100%;height:90%;border:none;"></iframe>
+    <iframe src="games/gamehub.html" style="width:100%;height:90%;border:none;"></iframe>
 </div>
 <script>
 /* CLOCK */
@@ -290,8 +312,9 @@ setInterval(()=>{
 function closeApp(app){
     document.getElementById(app).style.display = "none";
 }
-let z = 1;
 
+let z = 1;
+const MAX_Z = 999;
 function openApp(app){
     let win = document.getElementById(app);
     win.style.display = "block";
@@ -302,6 +325,44 @@ function openApp(app){
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
         }, 50);
+    }
+}
+document.querySelectorAll(".window").forEach(win=>{
+    win.addEventListener("mousedown",()=>{
+        win.style.zIndex = z++;
+        if(z > MAX_Z){
+            z = 1;
+        }
+    });
+});
+
+function maximizeApp(id){
+    let win = document.getElementById(id);
+    let taskbarHeight = 50; // adjust if your bar height changes
+
+    if(!win.classList.contains("max")){
+        // Save current position & size
+        win.dataset.top = win.style.top;
+        win.dataset.left = win.style.left;
+        win.dataset.width = win.style.width;
+        win.dataset.height = win.style.height;
+
+        // Maximize
+        win.style.top = "0px";
+        win.style.left = "0px";
+        win.style.width = "100%";
+        win.style.height = `calc(100% - ${taskbarHeight}px)`;
+
+        win.classList.add("max");
+    }
+    else{
+        // Restore
+        win.style.top = win.dataset.top;
+        win.style.left = win.dataset.left;
+        win.style.width = win.dataset.width;
+        win.style.height = win.dataset.height;
+
+        win.classList.remove("max");
     }
 }
 
@@ -346,9 +407,37 @@ document.querySelectorAll(".titlebar").forEach(bar => {
 });
 
 document.onmousemove = function(e){
-    if(activeWindow){
-        activeWindow.style.left = (e.clientX - offsetX) + "px";
-        activeWindow.style.top = (e.clientY - offsetY) + "px";
+    if(activeWindow && !activeWindow.classList.contains("max")){
+
+        let newX = e.clientX - offsetX;
+        let newY = e.clientY - offsetY;
+
+        let taskbarHeight = 50;
+
+        let winWidth = activeWindow.offsetWidth;
+        let winHeight = activeWindow.offsetHeight;
+
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
+
+        // 🚫 TOP LIMIT
+        if(newY < 0) newY = 0;
+
+        // 🚫 BOTTOM LIMIT (taskbar)
+        if(newY + winHeight > screenHeight - taskbarHeight){
+            newY = screenHeight - taskbarHeight - winHeight;
+        }
+
+        // 🚫 LEFT LIMIT
+        if(newX < 0) newX = 0;
+
+        // 🚫 RIGHT LIMIT
+        if(newX + winWidth > screenWidth){
+            newX = screenWidth - winWidth;
+        }
+
+        activeWindow.style.left = newX + "px";
+        activeWindow.style.top = newY + "px";
     }
 };
 

@@ -7,7 +7,20 @@
 <h2 id="status">Player X's Turn</h2>
 <div class="board" id="board"></div>
 <button onclick="resetGame()">🔄 Reset</button>
-<button onclick="goHome()">🏠 Home</button>
+<button onclick="goBack()" style="
+position:absolute;
+top:10px;
+left:10px;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+background:black;
+color:white;
+cursor:pointer;
+z-index:1000;
+">
+⬅ Back
+</button>
 <style>
 body{
     text-align:center;
@@ -115,8 +128,8 @@ function resetGame(){
     boardDiv.appendChild(cell);
   });
 }
-function goHome(){
-    window.location.href = "index.html";
+function goBack(){
+    window.parent.postMessage("goBack", "*");
 }
 </script>
 </body>
